@@ -1,0 +1,20 @@
+.Navulv{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navi{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+}
+
+.linkbar{
+  padding: 2rem;
+  border: 1px solid whitesmoke;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(6px);
+  margin-top: 2rem;
+}
+

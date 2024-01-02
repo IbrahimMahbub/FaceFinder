@@ -1,0 +1,11 @@
+.imgcontainer{
+    padding: 1rem;
+
+}
+.imgcontainer img{
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 100%;
+border-radius: 16px;
+}
