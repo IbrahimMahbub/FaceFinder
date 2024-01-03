@@ -6,6 +6,11 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import CoolBG from './components/CoolBG/CoolBG';
 import Recognition from './components/Recognition/Recognition';
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
+
+ 
+
 
 
 class App extends Component {
@@ -14,8 +19,9 @@ class App extends Component {
     this.state = {
       input: '',
       imageURL:'',
-      startRecog: false,
+      route: 'signin',
       box: {},
+      isSignedIn: false,
     }
   }
   onInputChange = (event) => {
@@ -26,52 +32,49 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageURL: this.state.input});
-    this.setState({startRecog: true});
+  }
+  onRouteChange = (route) =>{
+    this.setState({route: route});
+    if(route==='signout'){
+      this.setState({isSignedIn:false})
+    }else if (route==='home'){
+      this.setState({isSignedIn:true})
+    };
   }
 
 
   render() {
-    if (this.state.startRecog === true) {
-
+ 
         return(
-          <div className="App">
-            <div className='navi'>
-              <Logo/>
-              <Navigation />
-              
-            </div>
-          <Rank />
-          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-          <CoolBG/>
-          <Recognition imageURL={this.state.imageURL}/>
           
-    
-        </div>
-      );
-      
-    } else {
-      return(
-        <div className="App">
-          <div className='navi'>
-            <Logo/>
-            <Navigation />
-            
-          </div>
-        <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+          <div className="App">
+            <CoolBG/>
+            <div className='navi'>
+                   <Logo/>
+                  <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />     
+              </div>
+
+            { this.state.route === 'home' ? 
+             <div>
+
+
+              <Rank />
+              <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
+              <Recognition imageURL={this.state.imageURL} />
+            </div>
+
+        :( this.state.route === 'signin' ?
+            <Signin onRouteChange={this.onRouteChange}/> :
+            <Register onRouteChange={this.onRouteChange}/>
         
-        <p className='f4 tc white'>Your image will appare here!</p>
+        )
+            
+        }
+          </div>
 
-        <CoolBG/>
-      </div>
       );
-    }
-
-
-
   }
 }
-
-
+      
 
 export default App;
